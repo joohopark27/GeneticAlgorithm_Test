@@ -3,40 +3,42 @@ package main.java;
 import java.sql.SQLOutput;
 import java.util.Random;
 
-public class Individual {
+public class Individual implements Comparable<Individual>{
 
-    public static final int SIZE = 10;
+    private static final int SIZE = 10;
+    private static final int RANGE = 2;
+    private static final double MUTATION_RATE = 0.01;
+
     private int[] data;
-    private final int range = 2;
-    private int score;
 
     public Individual(){
 
         Random rand = new Random();
         data = new int[SIZE];
         for(int i = 0; i < SIZE; i++){
-            data[i] = (int) (rand.nextDouble() * range);
+            data[i] = (int) (rand.nextDouble() * RANGE);
         }
 
     }
 
-    public void print(){
+    @Override
+    public String toString(){
 
-        System.out.print("[" + data[0]);
+        String string = "[" + data[0];
 
         for(int i = 1; i < data.length; i++){
 
-            System.out.print(", " + data[i]);
+            string += ", " + data[i];
 
         }
 
-        System.out.print("]");
+        return string + "]";
 
     }
 
     public int score(){
 
-        score = 0;
+        int score = 0;
 
         for(int i: data){
 
@@ -47,4 +49,8 @@ public class Individual {
         return score;
     }
 
+    @Override
+    public int compareTo(Individual o) {
+        return o.score() - score();
+    }
 }

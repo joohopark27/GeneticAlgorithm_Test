@@ -1,21 +1,22 @@
 package main.java;
 
+import java.util.Arrays;
+
 public class Population {
 
-    private Individual[] speicies;
-    private static final int POP_SIZE = 10;
-    private final double winnerPercent = 0.2;
-    private final double randomPercent = 0.1;
-
+    private Individual[] species;
     private int generation;
+
+    private static final int POP_SIZE = 10;
+    private static final double SUVIVAL_PERCENT = 0.2;
     private final int MAX_GENERATION = 10;
 
     public Population(){
 
-        speicies = new Individual[POP_SIZE];
+        species = new Individual[POP_SIZE];
         for(int i = 0; i < POP_SIZE; i++){
 
-            speicies[i] = new Individual();
+            species[i] = new Individual();
 
         }
 
@@ -24,6 +25,10 @@ public class Population {
         while (generation < MAX_GENERATION){
 
             print();
+            Arrays.sort(species);
+//            species = nextGeneration();
+
+            generation++;
 
         }
 
@@ -34,12 +39,12 @@ public class Population {
     private void print(){
 
         System.out.println("Generation: " + generation);
-        for(Individual individual: speicies){
+        for(Individual individual: species){
 
-            individual.print();
-            System.out.print(" ");
+            System.out.print(individual + " ");
 
         }
+        System.out.println("\n");
 
     }
 
