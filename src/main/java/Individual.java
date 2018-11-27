@@ -21,6 +21,16 @@ public class Individual implements Comparable<Individual>{
 
     }
 
+    public Individual(int[] data){
+
+        this();
+
+        if(data.length == SIZE) {
+            this.data = data;
+        }
+
+    }
+
     @Override
     public String toString(){
 
@@ -36,7 +46,7 @@ public class Individual implements Comparable<Individual>{
 
     }
 
-    public int score(){
+    private int score(){
 
         int score = 0;
 
@@ -53,4 +63,23 @@ public class Individual implements Comparable<Individual>{
     public int compareTo(Individual o) {
         return o.score() - score();
     }
+
+    private int getData(int i){
+        return data[i];
+    }
+
+    public static Individual crossOver(Individual parent1, Individual parent2){
+
+        int[] child = new int[SIZE];
+
+        for(int i = 0; i < child.length; i++){
+
+            child[i] = (Math.random() < 0.5) ? parent1.getData(i) : parent2.getData(i);
+
+        }
+
+        return new Individual(child);
+
+    }
+
 }
