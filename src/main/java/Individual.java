@@ -7,7 +7,7 @@ public class Individual implements Comparable<Individual>{
 
     private static final int SIZE = 10;
     private static final int RANGE = 2;
-    private static final double MUTATION_RATE = 0.01;
+    private static final double MUTATION_RATE = 0.1;
 
     private int[] data;
 
@@ -79,6 +79,14 @@ public class Individual implements Comparable<Individual>{
         }
 
         return new Individual(child);
+
+    }
+
+    public void mutate(){
+
+        for(int i = 0; i < SIZE; i++){
+            data[i] = (Math.random() < MUTATION_RATE) ? (int)(Math.random() * RANGE) : data[i];
+        }
 
     }
 
