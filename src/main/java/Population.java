@@ -8,7 +8,7 @@ public class Population {
     private int generation;
 
     private static final int POP_SIZE = 10;
-    private static final double SUVIVAL_PERCENT = 0.2;
+    private static final double SURVIVAL_PERCENT = 0.2;
     private final int MAX_GENERATION = 10;
 
     public Population(){
@@ -21,14 +21,19 @@ public class Population {
         }
 
         generation = 1;
+        print();
+
+    }
+
+    public void evolve(){
 
         while (generation < MAX_GENERATION){
 
-            print();
             Arrays.sort(species);
-//            species = nextGeneration();
+            species = nextGeneration();
 
             generation++;
+            print();
 
         }
 
@@ -48,4 +53,19 @@ public class Population {
 
     }
 
+    private Individual[] nextGeneration(){
+
+        Individual[] nextGen = new Individual[POP_SIZE];
+
+        for(int i = 0; i < nextGen.length; i++){
+
+            Individual parent1 = species[(int) (Math.random() * POP_SIZE * SURVIVAL_PERCENT)];
+            Individual parent2 = species[(int) (Math.random() * POP_SIZE * SURVIVAL_PERCENT)];
+
+            nextGen[i] = Individual.crossOver(parent1, parent2);
+
+        }
+
+        return nextGen;
+    }
 }
